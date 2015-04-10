@@ -43,16 +43,18 @@ def sort_by_cohort(filename):
 
     datafile = open(filename)
     
-    for line in datafile:
-        line = line.rstrip().split("|")
-        if line[4] == "Winter 2015":
-            winter_15.append(line[0] + " " + line[1]).sort()
+    for aline in datafile:
+        line = aline.rstrip().split("|")
+        full_name = line[0] + " " + line[1]
+        cohort = line[4]
+        if cohort == "Winter 2015":
+            winter_15.append(full_name).sort()
 
-        if line[4] == "Spring 2015":
-            spring_15.append(line[0]+ " "+ line [1]).sort()
+        if cohort == "Spring 2015":
+            spring_15.append(full_name).sort()
 
         if line[3] == "":
-            tas.append(line[0] + " "+ line[1]).sort()
+            tas.append(full_name).sort()
 
 
     return all_students
@@ -75,7 +77,7 @@ def students_by_house(filename):
             ]
     """
 
-    all_students = []
+    all_students = [gryffindor +  hufflepuff + slytherin + dumbledores_army + ravenclaw + tas]
     gryffindor = []
     hufflepuff = []
     slytherin = []
@@ -84,31 +86,28 @@ def students_by_house(filename):
     tas = []
 
     datafile = open(filename)
-    for line in datafile:
-        line = line.rstrip.split("|")
+    for aline in datafile:
+        line = aline.rstrip().split("|")
+        house = line[2]
+        last_name = line[1]
 
-        if line[2] == "Gryffindor":
-            gryffindor.append(line[0] + " "+ line[1]).sort()
+        if house == "Gryffindor":
+            gryffindor.append(last_name).sort()
 
-        if line[2] == "Ravenclaw":
-            ravenclaw.append(line[0] + " "+ line[1]).sort()
+        if house == "Ravenclaw":
+            ravenclaw.append(last_name).sort()
 
-        if line[2] == "Slytherin":
-            slytherin.append(line[0] + " "+ line[1]).sort()
+        if house == "Slytherin":
+            slytherin.append(last_name).sort()
 
-        if line[2] == "Dumbledore's Army":
-            dumbledores_army.append(line[0] + " "+ line[1]).sort()
+        if house == "Dumbledore's Army":
+            dumbledores_army.append(last_name).sort()
 
-        if line[2] == "Hufflepuff":
-            hufflepuff.append(line[0] + " "+ line[1]).sort()
+        if house == "Hufflepuff":
+            hufflepuff.append(last_name).sort()
 
-
-
-
-
-
-
-
+        if line[3] == "":
+            tas.append(last_name).sort()
 
 
     return all_students
@@ -128,7 +127,10 @@ def all_students_tuple_list(filename):
 
     student_list = []
 
-    # Code goes here
+    datafile = open(filename)
+    for aline in datafile:
+        line = aline.rstrip().split("|")
+        student_list.append(line[:])
 
     return student_list
 
