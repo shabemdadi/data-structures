@@ -17,12 +17,14 @@ def unique_houses(filename):
 
     datafile = open(filename)
 
-   for aline in datafile:
+    for aline in datafile:
        line = aline.rstrip().split("|")
        house = line[2]
        houses.add(house)
 
     return houses
+
+print(unique_houses("cohort_data.txt"))
 
 
 def sort_by_cohort(filename):
@@ -36,11 +38,11 @@ def sort_by_cohort(filename):
     
     """
 
-    all_students = [winter_15 + spring_15 + tas]
     winter_15 = []
     spring_15 = []
     tas = []
-
+    all_students = [winter_15 + spring_15 + tas]
+    
     datafile = open(filename)
     
     for aline in datafile:
@@ -58,6 +60,8 @@ def sort_by_cohort(filename):
 
 
     return all_students
+
+print(sort_by_cohort("cohort_data.txt"))
 
 
 def students_by_house(filename):
@@ -112,6 +116,8 @@ def students_by_house(filename):
 
     return all_students
 
+print(students_by_house("cohort_data.txt"))
+
 
 def all_students_tuple_list(filename):
     """TODO: Create a list of tuples of student data.
@@ -128,11 +134,14 @@ def all_students_tuple_list(filename):
     student_list = []
 
     datafile = open(filename)
+
     for aline in datafile:
         line = aline.rstrip().split("|")
-        student_list.append(line[:])
-
+        student_list.append((line[:]))
+    
     return student_list
+
+print(all_students_tuple_list("cohort_data.txt"))
 
 
 def find_cohort_by_student_name(student_list):
@@ -143,8 +152,13 @@ def find_cohort_by_student_name(student_list):
     'Student not found.' when appropriate. """
 
     # Code goes here
+    full_name = raw_input("Enter student's full name")
+    for i in student_list:
+        if student_list[i][0] == full_name:
+            return student_list[i][3]
+        else: "Student not found."
 
-    return "Student not found."
+print(find_house_members_by_student_name(all_students_tuple_list("cohort_data.txt")))
 
 
 ##########################################################################################
