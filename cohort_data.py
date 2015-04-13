@@ -41,24 +41,30 @@ def sort_by_cohort(filename):
     winter_15 = []
     spring_15 = []
     tas = []
-    all_students = [winter_15 + spring_15 + tas]
-    
+    all_students = []
     datafile = open(filename)
     
     for aline in datafile:
         line = aline.rstrip().split("|")
-        full_name = line[0] + " " + line[1]
+        full_name = " ".join(line[0:2])
         cohort = line[4]
+        
         if cohort == "Winter 2015":
-            winter_15.append(full_name).sort()
+            winter_15.append(full_name)
+            winter_15.sort()
 
-        if cohort == "Spring 2015":
-            spring_15.append(full_name).sort()
+        elif cohort == "Spring 2015":
+            spring_15.append(full_name)
+            spring_15.sort()
 
-        if line[3] == "":
-            tas.append(full_name).sort()
-
-
+        else:
+            tas.append(full_name)
+            tas.sort()
+            
+    all_students.append(winter_15)
+    all_students.append(spring_15)
+    all_students.append(tas)
+    
     return all_students
 
 print(sort_by_cohort("cohort_data.txt"))
@@ -79,41 +85,53 @@ def students_by_house(filename):
                         dumbledores_army, 
                         tas 
             ]
+    
     """
-
-    all_students = [gryffindor +  hufflepuff + slytherin + dumbledores_army + ravenclaw + tas]
     gryffindor = []
     hufflepuff = []
     slytherin = []
     dumbledores_army = []
     ravenclaw = []
     tas = []
-
+    all_students = []
     datafile = open(filename)
+	
     for aline in datafile:
         line = aline.rstrip().split("|")
         house = line[2]
         last_name = line[1]
 
         if house == "Gryffindor":
-            gryffindor.append(last_name).sort()
+            gryffindor.append(last_name)
+            gryffindor.sort()
 
-        if house == "Ravenclaw":
-            ravenclaw.append(last_name).sort()
+        elif house == "Ravenclaw":
+            ravenclaw.append(last_name)
+            ravenclaw.sort()
 
-        if house == "Slytherin":
-            slytherin.append(last_name).sort()
+        elif house == "Slytherin":
+            slytherin.append(last_name)
+            slytherin.sort()
 
-        if house == "Dumbledore's Army":
-            dumbledores_army.append(last_name).sort()
+        elif house == "Dumbledore's Army":
+            dumbledores_army.append(last_name)
+            dumbledores_army.sort()
 
-        if house == "Hufflepuff":
-            hufflepuff.append(last_name).sort()
+        elif house == "Hufflepuff":
+            hufflepuff.append(last_name)
+            hufflepuff.sort()
 
-        if line[3] == "":
-            tas.append(last_name).sort()
-
-
+        else:
+            tas.append(last_name)
+            tas.sort()
+    
+    all_students.append(gryffindor)
+    all_students.append(hufflepuff)
+    all_students.append(slytherin)
+    all_students.append(dumbledores_army)
+    all_students.append(ravenclaw)
+    all_students.append(tas)
+    
     return all_students
 
 print(students_by_house("cohort_data.txt"))
@@ -137,9 +155,10 @@ def all_students_tuple_list(filename):
 
     for aline in datafile:
         line = aline.rstrip().split("|")
-        student_list.append((line[:]))
+        full_name = " ".join(line[0:2])
+        student_list.append([full_name] + line[2:])
     
-    return student_list
+    return tuple(student_list)
 
 print(all_students_tuple_list("cohort_data.txt"))
 
@@ -152,13 +171,15 @@ def find_cohort_by_student_name(student_list):
     'Student not found.' when appropriate. """
 
     # Code goes here
-    full_name = raw_input("Enter student's full name")
-    for i in student_list:
-        if student_list[i][0] == full_name:
-            return student_list[i][3]
-        else: "Student not found."
+    full_name = raw_input("Enter student's full name ")
+	
+    for student_info in student_list:
+        if student_info[0] == full_name:
+            return student_info[3]
+            break
+    print "Student not found."
 
-print(find_house_members_by_student_name(all_students_tuple_list("cohort_data.txt")))
+print(find_cohort_by_student_name(all_students_tuple_list("cohort_data.txt")))
 
 
 ##########################################################################################
@@ -177,8 +198,6 @@ def find_name_duplicates(filename):
     """
 
     duplicate_names = set()
-
-    # Code goes here
 
     return duplicate_names
 
